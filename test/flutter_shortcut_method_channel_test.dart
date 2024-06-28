@@ -1,15 +1,17 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_shortcut/src/method_call/flutter_shortcut_method_call_handler.dart';
+import 'package:flutter_shortcut/src/platform/flutter_shortcut_platform.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_shortcut/flutter_shortcut_method_channel.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  MethodChannelFlutterShortcut platform = MethodChannelFlutterShortcut();
-  const MethodChannel channel = MethodChannel('flutter_shortcut');
+  FlutterShortcutPlatform platform = FlutterShortcutMethodCallHandler();
+  const MethodChannel channel = MethodChannel('com.tayoji.flutter_shortcut');
 
   setUp(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
       channel,
       (MethodCall methodCall) async {
         return '42';
@@ -18,10 +20,11 @@ void main() {
   });
 
   tearDown(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await platform.getPlatformVersion(), '42');
+  test('getMaxShortcutLimit', () async {
+    expect(await platform.getMaxShortcutLimit(), '42');
   });
 }

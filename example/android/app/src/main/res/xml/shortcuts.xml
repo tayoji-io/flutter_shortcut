@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutDisabledMessage="@string/disable_message"
+        android:shortcutId="shortcut.scan"
+        android:shortcutLongLabel="@string/long_label"
+        android:shortcutShortLabel="@string/short_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.tayoji.flutter_shortcut_example.MainActivity"
+            android:targetPackage="com.tayoji.flutter_shortcut_example"
+            />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>

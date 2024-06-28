@@ -1,4 +1,4 @@
-package com.example.flutter_shortcut;
+package com.tayoji.flutter_shortcut;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

@@ -35,7 +35,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.example.flutter_shortcut
+        package: com.tayoji.flutter_shortcut
         pluginClass: FlutterShortcutPlugin
       ios:
         pluginClass: FlutterShortcutPlugin

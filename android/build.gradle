@@ -1,4 +1,4 @@
-group = "com.example.flutter_shortcut"
+group = "com.tayoji.flutter_shortcut"
 version = "1.0"
 
 buildscript {
@@ -23,7 +23,7 @@ apply plugin: "com.android.library"
 
 android {
     if (project.android.hasProperty("namespace")) {
-        namespace = "com.example.flutter_shortcut"
+        namespace = "com.tayoji.flutter_shortcut"
     }
 
     compileSdk = 34

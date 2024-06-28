@@ -1,4 +1,4 @@
-package com.example.flutter_shortcut_example;
+package com.tayoji.flutter_shortcut_example;
 
 import io.flutter.embedding.android.FlutterActivity;
 
