@@ -21,14 +21,14 @@ Adapt iOS based on this code
 
 ```yml
 dependencies:
-  flutter_shortcuts: <latest version>
+  flutter_shortcut: <latest version>
 ```
 
 Run pub get and get packages.
 
 ### Step 2: Initialize Flutter Shortcuts (Optional)
 
-**Officially Supported Platforms/Implementations**:
+Officially Supported Platforms/Implementations:
 
 - Android
 
@@ -54,7 +54,7 @@ FlutterShortcut.listenAction((String incomingAction) {
 
 Return the maximum number of static and dynamic shortcuts that each launcher icon can have at a time.
 
-**Officially Supported Platforms/Implementations**:
+Officially Supported Platforms/Implementations:
 
 - Android
 
