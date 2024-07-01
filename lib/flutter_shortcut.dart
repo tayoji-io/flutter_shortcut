@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter_shortcut/src/helper/helper.dart';
-import 'package:flutter_shortcut/src/platform/flutter_shortcut_platform.dart';
+import 'package:flutter_shortcut_plus/src/helper/helper.dart';
+import 'package:flutter_shortcut_plus/src/platform/flutter_shortcut_platform.dart';
 
-export 'package:flutter_shortcut/src/helper/helper.dart';
+export 'package:flutter_shortcut_plus/src/helper/helper.dart';
 
 class FlutterShortcut {
   FlutterShortcut._();

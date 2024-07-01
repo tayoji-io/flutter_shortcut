@@ -83,7 +83,7 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.2"
-  flutter_shortcut:
+  flutter_shortcut_plus:
     dependency: "direct main"
     description:
       path: ".."

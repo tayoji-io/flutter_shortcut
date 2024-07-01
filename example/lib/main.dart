@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_shortcut/flutter_shortcut.dart';
+import 'package:flutter_shortcut_plus/flutter_shortcut.dart';
 
 void main() {
   runApp(const MyApp());

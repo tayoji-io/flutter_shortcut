@@ -1,5 +1,5 @@
-import 'package:flutter_shortcut/src/helper/helper.dart';
-import 'package:flutter_shortcut/src/method_call/flutter_shortcut_method_call_handler.dart';
+import 'package:flutter_shortcut_plus/src/helper/helper.dart';
+import 'package:flutter_shortcut_plus/src/method_call/flutter_shortcut_method_call_handler.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 abstract class FlutterShortcutPlatform extends PlatformInterface {

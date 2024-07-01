@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_shortcut/src/helper/helper.dart';
-import 'package:flutter_shortcut/src/platform/flutter_shortcut_platform.dart';
+import 'package:flutter_shortcut_plus/src/helper/helper.dart';
+import 'package:flutter_shortcut_plus/src/platform/flutter_shortcut_platform.dart';
 
 class FlutterShortcutMethodCallHandler extends FlutterShortcutPlatform {
   final _channel = const MethodChannel('com.tayoji.flutter_shortcut');

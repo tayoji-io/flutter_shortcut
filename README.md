@@ -1,6 +1,6 @@
 # flutter_shortcut
 
-Flutter plugin for creating static & dynamic app/conversation shortcuts on home screen.
+Flutter plugin for creating static & dynamic app/conversation shortcuts on home screen. Supports iOS android
 
 
 ## Fork

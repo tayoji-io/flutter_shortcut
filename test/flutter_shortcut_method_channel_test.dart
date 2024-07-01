@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_shortcut/src/method_call/flutter_shortcut_method_call_handler.dart';
-import 'package:flutter_shortcut/src/platform/flutter_shortcut_platform.dart';
+import 'package:flutter_shortcut_plus/src/method_call/flutter_shortcut_method_call_handler.dart';
+import 'package:flutter_shortcut_plus/src/platform/flutter_shortcut_platform.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

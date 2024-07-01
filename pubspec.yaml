@@ -1,5 +1,5 @@
-name: flutter_shortcut
-description: "A new Flutter plugin project."
+name: flutter_shortcut_plus
+description: "Flutter plugin for creating static & dynamic app/conversation shortcuts on home screen. Supports iOS android."
 version: 0.0.1
 homepage:
 
