@@ -21,7 +21,7 @@ Adapt iOS based on this code
 
 ```yml
 dependencies:
-  flutter_shortcut: <latest version>
+  flutter_shortcut_plus: <latest version>
 ```
 
 Run pub get and get packages.
