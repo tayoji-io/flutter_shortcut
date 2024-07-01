@@ -49,7 +49,7 @@ class ShortcutItem {
   /// Flutter asset path. Only Supports image files. Eg. .png/.jpg
   final String? icon;
 
-  /// `ShortcutIconType.androidAsset` or `ShortcutIconType.flutterAsset`
+  /// `ShortcutIconType.nativeAsset` or `ShortcutIconType.flutterAsset`
   final ShortcutIconAsset shortcutIconAsset;
 
   /// `true` if the shortcut is a person.

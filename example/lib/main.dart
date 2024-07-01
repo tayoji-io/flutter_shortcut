@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String? _action;
 
   @override
   void initState() {
@@ -27,29 +27,49 @@ class _MyAppState extends State<MyApp> {
   Future<void> initPlatformState() async {
     FlutterShortcut.listenAction((action) {
       setState(() {
-        _platformVersion = action;
+        _action = action;
       });
     });
-    final date = DateTime.now().toString();
+    setShortcutItems();
+
+    if (!mounted) return;
+  }
+
+  void setShortcutItems() {
     FlutterShortcut.setShortcutItems(
       shortcutItems: <ShortcutItem>[
-        ShortcutItem(
-          id: "scan",
-          action: 'Bookmark page action',
-          shortLabel: 'Bookmark Page',
-          longLabel: date,
+        const ShortcutItem(
+          id: "1",
+          action: 'shortcut.scan',
+          shortLabel: 'Scan code',
           icon: "assets/scan.png",
           shortcutIconAsset: ShortcutIconAsset.flutterAsset,
         ),
       ],
     );
+  }
 
-    // Platform messages may fail, so we use a try/catch PlatformException.
+  void clearShortcutItems() {
+    FlutterShortcut.clearShortcutItems();
+  }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
+  void pushShortcutItem() {
+    FlutterShortcut.pushShortcutItem(
+        shortcut: const ShortcutItem(
+            id: '2',
+            action: 'shortcut.messages',
+            shortLabel: 'Messages',
+            icon: 'message',
+            shortcutIconAsset: ShortcutIconAsset.nativeAsset));
+  }
+
+  void updateShortcutItem() {
+    FlutterShortcut.updateShortcutItem(
+        shortcut: const ShortcutItem(
+      id: '1',
+      action: 'shortcut.scan',
+      shortLabel: 'Scan code update',
+    ));
   }
 
   @override
@@ -59,10 +79,25 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+        body: ListView(padding: const EdgeInsets.all(20), children: [
+          Text('listenAction: ${_action ?? ''}'),
+          ...([
+            ListItem("setShortcutItems", setShortcutItems),
+            ListItem("clearShortcutItems", clearShortcutItems),
+            ListItem("pushShortcutItem", pushShortcutItem),
+            ListItem("updateShortcutItem", updateShortcutItem),
+          ].map((item) {
+            return FilledButton(
+                onPressed: item.onPressed, child: Text(item.title));
+          }).toList())
+        ]),
       ),
     );
   }
+}
+
+class ListItem {
+  final String title;
+  VoidCallback onPressed;
+  ListItem(this.title, this.onPressed);
 }

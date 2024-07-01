@@ -386,7 +386,7 @@ public class MethodCallImplementation implements MethodChannel.MethodCallHandler
 
     /* *********************** ShortcutInfoCompat ******************* */
     private void setIconCompat(int iconType,String icon,ShortcutInfoCompat.Builder shortcutBuilderCompat) {
-        // 0 - ShortcutIconType.androidAsset
+        // 0 - ShortcutIconType.nativeAsset
         // 1 - ShortcutIconType.flutterAsset
         switch (iconType) {
             case 0:
@@ -417,7 +417,7 @@ public class MethodCallImplementation implements MethodChannel.MethodCallHandler
 
     /* *********************** Person ******************* */
     private void setIconCompat(int iconType,String icon,Person.Builder personBuilderCompat) {
-        // 0 - ShortcutIconType.androidAsset
+        // 0 - ShortcutIconType.nativeAsset
         // 1 - ShortcutIconType.flutterAsset
         switch (iconType) {
             case 0:
@@ -464,7 +464,7 @@ public class MethodCallImplementation implements MethodChannel.MethodCallHandler
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Icon.createWithAdaptiveBitmap(image);
+        return Icon.createWithBitmap(image);
     }
 
     private int loadResourceId(Context context, String icon) {

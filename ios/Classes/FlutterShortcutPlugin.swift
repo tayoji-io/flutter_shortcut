@@ -29,43 +29,7 @@ public class FlutterShortcutPlugin: NSObject, FlutterPlugin {
         case "clearShortcutItems":
             UIApplication.shared.shortcutItems = []
             result(nil)
-        case "pushShortcutItem":
-            guard let args = call.arguments as? Dictionary<String,Any>  else {return}
-            let item =  getShortcutItem(args)
-            if (UIApplication.shared.shortcutItems == nil) {
-                UIApplication.shared.shortcutItems = [item]
-            }else {
-                UIApplication.shared.shortcutItems?.append(item)
-            }
-            result(nil)
-        case "pushShortcutItems":
-            guard let args = call.arguments as? [Dictionary<String, Any>?] else { return  }
-            let  items = args.map { dict in
-                return getShortcutItem(dict!);
-            }
-            if (UIApplication.shared.shortcutItems == nil) {
-                UIApplication.shared.shortcutItems = items
-            }else {
-                UIApplication.shared.shortcutItems?.append(contentsOf: items)
-            }
-            result(nil)
-        case "updateShortcutItem":
-            guard let args = call.arguments as? Dictionary<String,Any>  else {return}
-            let item =  getShortcutItem(args)
-            if (UIApplication.shared.shortcutItems == nil) {
-                UIApplication.shared.shortcutItems = [item]
-            }else {
-                let index =  UIApplication.shared.shortcutItems!.firstIndex(where: { _item in
-                    return _item.type == item.type
-                })
-                if (index == nil ) {
-                    UIApplication.shared.shortcutItems?.append(item)
-                }else {
-                    UIApplication.shared.shortcutItems![index!] = item
-                }
-            }
-            result(nil)
-        case "updateShortcutItems":
+        case "pushShortcutItem","pushShortcutItems","updateShortcutItem", "updateShortcutItems":
             guard let args = call.arguments as? [Dictionary<String, Any>?] else { return  }
             let  items = args.map { dict in
                 return getShortcutItem(dict!);
@@ -100,7 +64,10 @@ public class FlutterShortcutPlugin: NSObject, FlutterPlugin {
     
     private func getShortcutItem(_ dict:Dictionary<String, Any>) ->UIApplicationShortcutItem{
         let shortcutIconType = dict["shortcutIconType"] as? String
+        let action =  dict["action"] as! String
         var shortcutIcon:UIApplicationShortcutIcon?
+        var longLabel = dict["longLabel"] as? String
+
         if  let icon = dict["icon"] as? String {
             switch shortcutIconType {
             case "0":
@@ -113,10 +80,20 @@ public class FlutterShortcutPlugin: NSObject, FlutterPlugin {
                 break;
             }
         }
+       if let item = UIApplication.shared.shortcutItems?.first(where: { item in
+            return item.type == action
+       }) {
+           if (shortcutIcon == nil) {
+               shortcutIcon = item.icon
+           }
+           if (longLabel == nil || longLabel?.count == 0) {
+               longLabel = item.localizedSubtitle;
+           }
+       }
         return UIApplicationShortcutItem.init(
-            type: dict["action"] as! String,
+            type: action,
             localizedTitle: dict["shortLabel"] as! String ,
-            localizedSubtitle: dict["longLabel"] as? String,
+            localizedSubtitle: longLabel,
             icon:shortcutIcon)
         
     }
