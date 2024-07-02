@@ -1,6 +1,6 @@
 name: flutter_shortcut_plus
 description: "Flutter plugin for creating static & dynamic app/conversation shortcuts on home screen. Supports iOS android."
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/tayoji-io/flutter_shortcut.git
 
 environment:
