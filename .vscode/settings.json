@@ -1,0 +1,3 @@
+{
+  "git-commit-message-generator.customInstructionsFile": ".vscode/commit-prompt.md",
+}

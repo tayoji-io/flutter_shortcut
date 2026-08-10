@@ -38,6 +38,7 @@ public class MethodCallImplementation implements MethodChannel.MethodCallHandler
     private static final String TAG = FlutterShortcutPlugin.getTAG();
 
     private final Context context;
+    private final MethodChannel channel;
     private Activity activity;
 
     private boolean debug;
@@ -48,9 +49,26 @@ public class MethodCallImplementation implements MethodChannel.MethodCallHandler
         }
     }
 
-    MethodCallImplementation(Context context, Activity activity) {
+    MethodCallImplementation(Context context, MethodChannel channel, Activity activity) {
         this.context = context;
+        this.channel = channel;
         this.activity = activity;
+    }
+
+    /// Warm launch: the activity is reused, so the action arrives through
+    /// onNewIntent instead of the launch intent read by getLaunchAction.
+    void onNewIntent(Intent intent) {
+        final String action = intent.getStringExtra(EXTRA_ACTION);
+        if (action == null || action.isEmpty()) {
+            return;
+        }
+        if (activity != null) {
+            activity.setIntent(intent);
+        }
+        ShortcutManagerCompat.reportShortcutUsed(context, action);
+        intent.removeExtra(EXTRA_ACTION);
+        channel.invokeMethod("launch", action);
+        debugPrint("Launch Action (new intent): " + action);
     }
 
     void setActivity(Activity activity) {
@@ -492,6 +510,7 @@ public class MethodCallImplementation implements MethodChannel.MethodCallHandler
                 .setAction(Intent.ACTION_RUN)
                 .putExtra(EXTRA_ACTION, type)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                // ponytail: no CLEAR_TASK, it restarts the whole app on every tap.
+                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
     }
 }

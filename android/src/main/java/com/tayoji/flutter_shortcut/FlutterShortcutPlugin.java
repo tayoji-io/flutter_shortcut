@@ -17,9 +17,11 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import io.flutter.plugin.common.PluginRegistry;
 
 /** FlutterShortcutPlugin */
-public class FlutterShortcutPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
+public class FlutterShortcutPlugin
+    implements FlutterPlugin, MethodCallHandler, ActivityAware, PluginRegistry.NewIntentListener {
   private static final String CHANNEL_ID = "com.tayoji.flutter_shortcut";
 
   private static final String TAG = "[Flutter Shortcut]";
@@ -31,6 +33,8 @@ public class FlutterShortcutPlugin implements FlutterPlugin, MethodCallHandler, 
   private MethodChannel channel;
 
   private MethodCallImplementation handler;
+
+  private ActivityPluginBinding activityBinding;
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
@@ -44,12 +48,24 @@ public class FlutterShortcutPlugin implements FlutterPlugin, MethodCallHandler, 
 
   @Override
   public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+    activityBinding = binding;
+    binding.addOnNewIntentListener(this);
     handler.setActivity(binding.getActivity());
   }
 
   @Override
   public void onDetachedFromActivity() {
+    if (activityBinding != null) {
+      activityBinding.removeOnNewIntentListener(this);
+      activityBinding = null;
+    }
     handler.setActivity(null);
+  }
+
+  @Override
+  public boolean onNewIntent(@NonNull Intent intent) {
+    handler.onNewIntent(intent);
+    return false;
   }
 
   @Override
@@ -64,7 +80,7 @@ public class FlutterShortcutPlugin implements FlutterPlugin, MethodCallHandler, 
 
   private void setupChannel(BinaryMessenger messenger, Context context, Activity activity) {
     channel = new MethodChannel(messenger, CHANNEL_ID);
-    handler = new MethodCallImplementation(context, activity);
+    handler = new MethodCallImplementation(context, channel, activity);
     channel.setMethodCallHandler(handler);
   }
 
